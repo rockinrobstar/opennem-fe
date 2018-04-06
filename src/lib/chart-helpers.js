@@ -131,7 +131,7 @@ function getStockGraphs(domains, keys, showBalloon) {
       const negativeFillAlphas = hideNegativeAlphas(ftKey) ? 0 : 0.8;
       const fillAlphas = 0.8;
       const lineAlpha = 0.1;
-      const type = 'column';
+      const type = 'smoothedLine';
 
       const graph = {
         id: ftKey,

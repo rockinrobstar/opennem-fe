@@ -150,7 +150,7 @@ export default {
         stackable: false,
         id: 'demand',
         valueField: 'demand',
-        type: 'line',
+        type: 'smoothedLine',
         fillAlphas: 0,
         lineAlpha: 1,
         lineColor: '#000',
@@ -240,7 +240,8 @@ export default {
       }
     },
 
-    onPanelHover() {},
+    onPanelHover() {
+    },
 
     onCategoryAxisItemClicked(e) {
       const zoomDates = getZoomDatesOnDateLabel(e.value, this.dataEndDate);
