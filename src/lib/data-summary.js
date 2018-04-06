@@ -160,7 +160,7 @@ function getPointSummary(domains, date, data) {
     if (average !== undefined) {
       totalNetPower += average;
 
-      if (!isLoad(domain)) {
+      if (!isLoad(domain) && domain !== 'demand') {
         totalGrossPower += average;
       }
     }

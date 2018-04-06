@@ -124,15 +124,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-  padding: 1rem;
-}
-header {
-  text-align: center;
-  padding-bottom: 1rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid #ddd;
-}
 .zoom-out-btn {
   position: absolute;
   z-index: 9;

@@ -91,14 +91,14 @@ export default {
           graphFillAlpha: 0.9,
           graphType: 'line',
           position: top,
-          usePeriod: '6hh',
+          usePeriod: 'DD',
           resizeEnabled: false,
           fontSize: 0, // hide
         };
       }
 
       config.categoryAxesSettings.minPeriod = 'hh';
-      config.categoryAxesSettings.groupToPeriods = ['hh', '3hh', '6hh', 'WW'];
+      config.categoryAxesSettings.groupToPeriods = ['hh', '3hh', '6hh', 'DD', 'WW'];
 
       this.chart = window.AmCharts.makeChart(this.$el, config);
 
@@ -268,7 +268,7 @@ export default {
 
       // refresh chart to include "new" listener
       e.chart.drawnManually = true;
-      // e.chart.validateNow();
+      e.chart.validateNow();
     },
 
     onChartCursorZoomed() {
