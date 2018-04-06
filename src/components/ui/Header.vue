@@ -7,7 +7,7 @@
 
       <div class="level-right">
         <date-selector />
-        <export-modal />
+        <!-- <export-modal /> -->
       </div>
     </div>
   </nav>

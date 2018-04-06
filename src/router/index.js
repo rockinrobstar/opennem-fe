@@ -4,6 +4,7 @@ import Home from '@/components/Home';
 import Region from '@/components/Region';
 import Widget from '@/components/Widget';
 import About from '@/components/About';
+import WesternAus from '@/components/WesternAus';
 
 Vue.use(Router);
 
@@ -11,6 +12,10 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/wa',
+    },
+    {
+      path: '/home',
       name: 'home',
       component: Home,
     },
@@ -30,6 +35,11 @@ export default new Router({
       path: '/about',
       name: 'about',
       component: About,
+    },
+    {
+      path: '/wa',
+      name: 'wa',
+      component: WesternAus,
     },
   ],
 });

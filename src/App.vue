@@ -22,6 +22,14 @@
       </section>
     </transition>
 
+    <section v-if="isWA">
+      <app-header />
+      <div class="router-view-container">
+        <router-view />
+      </div>
+      <app-footer />
+    </section>
+
   </div>  
 </template>
 
@@ -45,6 +53,9 @@ export default {
     },
     isWidget() {
       return this.$route.name === 'widget';
+    },
+    isWA() {
+      return this.$route.name === 'wa';
     },
   },
 };

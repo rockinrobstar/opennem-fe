@@ -77,6 +77,7 @@ function getSummary(domains, data) {
   const allData = [];
   const sourcesData = [];
   const loadsData = [];
+  const demandData = [];
   let totalNetPower = 0;
   let totalNetEnergy = 0;
   let totalGrossPower = 0;
@@ -116,6 +117,8 @@ function getSummary(domains, data) {
 
       if (isLoad(domain)) {
         loadsData.push(row);
+      } else if (domain === 'demand') {
+        demandData.push(row);
       } else {
         sourcesData.push(row);
         // sum up sources power (gross)
@@ -136,6 +139,7 @@ function getSummary(domains, data) {
     allData,
     sourcesData: sourcesData.reverse(), // to display from top to bottom in the table.
     loadsData,
+    demandData,
     totalNetPower,
     totalNetEnergy,
     totalGrossPower,

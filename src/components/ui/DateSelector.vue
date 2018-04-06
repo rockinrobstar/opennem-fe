@@ -7,23 +7,10 @@
           {{pointDate}}
         </div>
         <div v-else>
-          <a class="dropdown-trigger" v-on-clickaway="onClickAway" @click="handleClick">
+          <a class="dropdown-trigger">
             {{startDate}} – {{endDate}}
           </a>
-        </div>  
-
-        <transition name="slide-down-fade">
-          <div v-if="dropdownActive" class="dropdown-menu">
-            <div class="dropdown-content">
-              <a class="dropdown-item" @click="handleLast24HrsSelection">
-                Last 24 hours
-              </a>
-              <a class="dropdown-item" @click="handleLast7DaysSelection">
-                Last 7 days
-              </a>
-            </div>
-          </div>
-        </transition> 
+        </div>
       </div>
     </transition>
   </div>
@@ -31,15 +18,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { mixin as clickaway } from 'vue-clickaway';
 import { formatDateForDisplay } from '@/lib/formatter';
-import { getLast24HoursStartEndDates } from '@/lib/data-helpers';
-import EventBus from '@/lib/event-bus';
 import Loader from './Loader';
 
 export default {
   name: 'date-selector',
-  mixins: [clickaway],
   components: {
     Loader,
   },
@@ -52,7 +35,6 @@ export default {
     ...mapGetters({
       isFetching: 'isFetching',
       isPointHovered: 'isPointHovered',
-      dataEndDate: 'getDataEndDate',
     }),
     pointDate() {
       return formatDateForDisplay(this.$store.getters.getPointSummary.date);
@@ -65,30 +47,8 @@ export default {
     },
   },
   watch: {
-    isPointHovered(hovered) {
-      if (hovered) {
-        this.onClickAway();
-      }
-    },
   },
   methods: {
-    handleClick() {
-      const isActive = !this.dropdownActive;
-      this.dropdownActive = isActive;
-    },
-    handleLast24HrsSelection() {
-      const last24Hrs = getLast24HoursStartEndDates(this.dataEndDate);
-      this.$store.dispatch('saveSelectedDates', last24Hrs);
-      this.$store.dispatch('setChartZoomed', true);
-      EventBus.$emit('data.fetch.latest');
-    },
-    handleLast7DaysSelection() {
-      this.$store.dispatch('setChartZoomed', false);
-      EventBus.$emit('data.fetch.latest');
-    },
-    onClickAway() {
-      this.dropdownActive = false;
-    },
   },
 };
 </script>
@@ -109,7 +69,6 @@ export default {
 
   a.dropdown-trigger {
     color: #000;
-    border-bottom: 1px dashed $opennem-primary-alpha;
   }
 }
 </style>
