@@ -129,6 +129,12 @@ const GraphDomains = {
     categoryId: 'price',
     unit: '$/MWh',
   },
+  demand: {
+    colour: '#C74523',
+    type: 'demand',
+    label: 'Demand',
+    unit: 'MW',
+  },
 };
 
 function getCSVHeaders() {

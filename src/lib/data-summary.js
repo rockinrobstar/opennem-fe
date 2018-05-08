@@ -7,7 +7,8 @@ function isValidFT(name) {
     name !== 'price' &&
     name !== 'pricePos' &&
     name !== 'priceNeg' &&
-    name !== 'temperature';
+    name !== 'temperature' &&
+    name !== 'demand';
 }
 
 // Check if FT is a load
@@ -184,7 +185,7 @@ function getPointSummary(domains, date, data) {
     if (domain === 'price') {
       allData[domain] = data[`${domain}Close`];
     }
-    if (domain === 'temperature') {
+    if (domain === 'temperature' || domain === 'demand') {
       allData[domain] = data[`${domain}Average`];
     }
   });

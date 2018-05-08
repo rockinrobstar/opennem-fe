@@ -38,6 +38,18 @@
         </th>
       </tr>
     </thead>
+    <tbody>
+      <tr>
+        <th class="row-header">Demand</th>
+        <th class="cell-value">
+          <div v-if="isPointHovered">
+            {{ pointSummary.allData['demand'] | formatNumber }}
+          </div>
+        </th>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
     <thead>
       <tr>
         <th class="row-header">Sources</th>

@@ -30,7 +30,8 @@
 
   <div class="column is-narrow" v-if="!isFetching && !isExportPng">
     <region-summary :showTemperature="true" />
-    <region-extent :showTemperature="true" :showPrice="true" v-if="records" />
+    <!-- v-if="records" -->
+    <region-extent :showTemperature="true" :showPrice="true" />
   </div>
 </div>
 

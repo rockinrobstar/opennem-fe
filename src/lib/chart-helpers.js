@@ -125,13 +125,19 @@ function getStockGraphs(domains, keys, showBalloon) {
       key === 'battery_charging';
   }
 
+  function isDemand(key) {
+    return key === 'demand';
+  }
+
   keys.forEach((ftKey) => {
     if (validFT(ftKey)) {
       const colour = domains[ftKey].colour;
       const negativeFillAlphas = hideNegativeAlphas(ftKey) ? 0 : 0.8;
-      const fillAlphas = 0.8;
-      const lineAlpha = 0.1;
+      const fillAlphas = isDemand(ftKey) ? 0 : 0.8;
+      const lineAlpha = isDemand(ftKey) ? 1 : 0.1;
       const type = 'line';
+      const stackable = !isDemand(ftKey);
+      const lineThickness = isDemand(ftKey) ? 2 : 1;
 
       const graph = {
         id: ftKey,
@@ -142,9 +148,11 @@ function getStockGraphs(domains, keys, showBalloon) {
         negativeFillColors: colour,
         lineAlpha,
         lineColor: colour,
+        lineThickness,
         useDataSetColors: false,
         showBalloon,
         periodValue: 'Average',
+        stackable,
         balloonFunction: (item) => {
           let balloonTxt = '';
 
