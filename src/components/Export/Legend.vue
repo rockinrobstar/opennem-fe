@@ -1,11 +1,11 @@
 <template>
   <section>
-    <div class="graph" v-for="row in rangeSummary.sourcesData" :key="row.id">
+    <div class="legend-item" v-for="row in rangeSummary.sourcesData" :key="row.id">
       <span class="source-colour" :style="{ backgroundColor: row.colour }"></span>
       <div class="source-label">
         {{row.label}}
         <em>
-          ({{ getContribution(row.range.power, rangeSummary.totalGrossPower) | formatNumber }}<span v-if="hasValue(getContribution(row.range.power, rangeSummary.totalGrossPower))">%</span>)
+          {{ getContribution(row.range.power, rangeSummary.totalGrossPower) | formatNumber }}<span v-if="hasValue(getContribution(row.range.power, rangeSummary.totalGrossPower))">%</span>
         </em>
       </div>
     </div>
@@ -47,10 +47,11 @@ section {
   display: flex;
   flex-wrap: wrap;
 }
-.graph {
+.legend-item {
   font-size: 0.75rem;
   margin-right: 0.5rem;
   width: 47%;
+  white-space: nowrap;
 
   @include desktop {
     width: 31%;
