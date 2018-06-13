@@ -116,17 +116,7 @@ export default {
     color: #000;
     padding: 0.5rem 1rem;
     border-radius: 1rem;
-
-    &:hover {
-      background-color: rgba(255,255,255,0.5);
-    }
-
-    .fal {
-      color: $opennem-primary-alpha;
-      position: relative;
-      top: 1px;
-      left: 3px;
-    }
+    cursor: default;
   }
 }
 
