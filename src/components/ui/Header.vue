@@ -8,7 +8,8 @@
       </div>
 
       <div class="level-right">
-        <date-selector />
+        <date-header v-if="isWA" />
+        <date-selector v-else />
         <export-modal />
       </div>
     </div>
@@ -19,6 +20,7 @@
 import { mapGetters } from 'vuex';
 import RegionSelector from './RegionSelector';
 import DateSelector from './DateSelector';
+import DateHeader from './DateHeader';
 import ExportHeader from '../Export/Header';
 import ExportModal from '../Export/Modal';
 
@@ -27,6 +29,7 @@ export default {
   components: {
     RegionSelector,
     DateSelector,
+    DateHeader,
     ExportHeader,
     ExportModal,
   },
@@ -34,6 +37,9 @@ export default {
     ...mapGetters({
       isExportPng: 'isExportPng',
     }),
+    isWA() {
+      return this.$route.name === 'wa';
+    },
   },
 };
 </script>

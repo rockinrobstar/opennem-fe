@@ -54,7 +54,13 @@ export default {
   },
   computed: {
     regionLabel() {
-      return getRegionLabel(this.$route.params.region);
+      return this.isWA ? 'Western Australia' : getRegionLabel(this.$route.params.region);
+    },
+    regionId() {
+      return this.isWA ? 'wa' : this.$route.params.region;
+    },
+    isWA() {
+      return this.$route.name === 'wa';
     },
     isHome() {
       return this.$route.name === 'home';
@@ -72,10 +78,14 @@ export default {
       this.dropdownActive = false;
     },
     handleRegionChange(regionId) {
-      this.$router.push({ name: 'regions', params: { region: regionId } });
+      if (regionId === 'wa') {
+        this.$router.push({ name: 'wa' });
+      } else {
+        this.$router.push({ name: 'regions', params: { region: regionId } });
+      }
     },
     isCurrentSelection(id) {
-      return this.$route.params.region === id;
+      return this.regionId === id;
     },
     goHome() {
       this.$router.push({ name: 'home' });

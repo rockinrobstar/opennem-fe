@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home';
 import Region from '@/components/Region';
+import WesternAus from '@/components/WesternAus';
 import Widget from '@/components/Widget';
 import About from '@/components/About';
 import FeatureToggle from '@/components/FeatureToggle';
@@ -25,6 +26,11 @@ export default new Router({
       props: true,
       name: 'regions',
       component: Region,
+    },
+    {
+      path: '/wa',
+      name: 'wa',
+      component: WesternAus,
     },
     {
       path: '/widget/:size',

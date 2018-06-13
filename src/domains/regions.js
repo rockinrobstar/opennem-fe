@@ -28,6 +28,11 @@ const RegionDomains = [
     label: 'Victoria',
     offset: 10,
   },
+  {
+    id: 'wa',
+    label: 'Western Australia',
+    offset: 8,
+  },
 ];
 
 function getAllRegions() {
