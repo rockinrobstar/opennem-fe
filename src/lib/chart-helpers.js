@@ -129,15 +129,21 @@ function getStockGraphs(domains, keys, graphType, unit) {
     if (isValidFuelTech(ftKey)) {
       const colour = domains[ftKey].colour;
       let negativeFillAlphas = 0.8;
-      const fillAlphas = 0.8;
+      let fillAlphas = 0.8;
       const fillColors = colour;
-      const lineAlpha = 0;
+      let lineAlpha = 0;
       const lineThickness = 1;
       const lineColor = colour;
-      const type = graphType || 'line';
+      let type = graphType || 'line';
 
       if (graphType !== 'step' && hideNegativeAlphas(ftKey)) {
         negativeFillAlphas = 0;
+      }
+
+      if (ftKey === 'demand') {
+        type = 'smoothedLine';
+        fillAlphas = 0;
+        lineAlpha = 1;
       }
 
       const graph = {

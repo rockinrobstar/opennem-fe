@@ -1,5 +1,8 @@
 <template>
 <div>
+  <div style="text-align: center; height: 50px;">
+    <date-header />
+  </div>
   <transition name="fade">
     <ui-zoom-out-button v-if="isChartZoomed && !isFetching && !isExportPng" />
   </transition>
@@ -11,29 +14,31 @@
   </transition>
   
   <transition name="slide-fade">
-    <div class="columns is-desktop is-variable is-1" v-show="!isFetching && !error">
-      <div class="column" :class="{ export: isExportPng }">
-        <div id="export-container">
-          <export-png-header v-if="isExportPng" />
+    <div>
+      <div class="columns is-desktop is-variable is-1" v-show="!isFetching && !error">
+        <div class="column" :class="{ export: isExportPng }">
+          <div id="export-container">
+            <export-png-header v-if="isExportPng" />
 
-          <div style="position:relative">
-            <panel-button />
-            <all-regions-chart :chartData="nemData" />
-            <div v-if="isExportPng">
-              <all-regions-summary v-if="showSummaryPanel" />
-              <export-legend v-else />
+            <div style="position:relative">
+              <panel-button />
+              <wa-chart :chartData="nemData" />
+              <div v-if="isExportPng">
+                <wa-summary v-if="showSummaryPanel" />
+                <export-legend v-else />
+              </div>
             </div>
+            
+            <export-png-footer v-if="isExportPng" :hideTopBorder="showSummaryPanel" />
           </div>
-          
-          <export-png-footer v-if="isExportPng" :hideTopBorder="showSummaryPanel" />
         </div>
       </div>
-
-      <div class="column is-narrow" v-show="!isExportPng">
-        <all-regions-summary />
-        <all-regions-extent v-if="recordsTable" />
+      <div class="columns is-centered">
+        <div class="column is-narrow" v-show="!isExportPng">
+          <wa-summary />
+        </div>
       </div>
-    </div>
+    </div>  
   </transition>
 </div>
 </template>
@@ -45,33 +50,36 @@ import FileSaver from 'file-saver';
 import EventBus from '@/lib/event-bus';
 import updateRouterStartEnd from '@/lib/app-router';
 import { GraphDomains } from '@/domains/graphs';
-import { findRange } from '@/domains/date-ranges';
+import * as VisTypes from '@/constants/vis-types';
 
-import AllRegionsChart from './AllRegions/Chart';
-import AllRegionsSummary from './AllRegions/Summary';
-import AllRegionsExtent from './ui/Extent';
+import WaChart from './WA/Chart';
+import WaSummary from './WA/Summary';
 import ExportPngHeader from './Export/PngHeader';
 import ExportPngFooter from './Export/PngFooter';
-import PanelButton from './AllRegions/ShowHideButton';
+import PanelButton from './WA/ShowHideButton';
 import ExportLegend from './Export/Legend';
 import UiZoomOutButton from './ui/ZoomOutButton';
 import UiLoader from './ui/Loader';
+import DateHeader from './ui/DateHeader';
+
 
 export default {
   components: {
-    AllRegionsChart,
-    AllRegionsSummary,
-    AllRegionsExtent,
+    WaChart,
+    WaSummary,
     ExportPngHeader,
     ExportPngFooter,
     ExportLegend,
     UiZoomOutButton,
     PanelButton,
     UiLoader,
+    DateHeader,
   },
   created() {
     this.$store.dispatch('setExportRegion', 'Western Australia');
     this.$store.dispatch('setDomains', GraphDomains);
+    this.$store.dispatch('localData', true);
+    this.$store.dispatch('setVisType', VisTypes.VIS_TYPE_ENERGY);
     this.fetch();
   },
   mounted() {
@@ -124,13 +132,6 @@ export default {
         end,
       });
     },
-    currentRange() {
-      // when currentRange changes, refetch the data
-      this.fetch();
-    },
-    chartTypeTransition() {
-      this.fetch();
-    },
   },
   methods: {
     downloadPng() {
@@ -143,18 +144,8 @@ export default {
       }, 5);
     },
     fetch() {
-      const range = findRange(this.currentRange);
-      const visType = this.chartTypeTransition ? this.visType : range.visType;
-      const extension = this.chartTypeTransition ? this.yearsWeeks : range.extension;
-      const interval = this.chartTypeTransition ? `/history/${this.currentInterval}` : range.folder;
-      const prependUrl = `${visType}${interval}`;
-
-      const urls = this.chartTypeTransition ?
-        this.yearsWeeks.map(w => `${prependUrl}/nem${w}.json`) :
-        [`${prependUrl}/nem${extension}.json`];
-
-      this.$store.dispatch('setVisType', visType);
-      this.$store.dispatch('fetchData', urls);
+      const urls = ['wa/close_collie_and_muja.json'];
+      this.$store.dispatch('fetchWA', urls);
     },
   },
 };

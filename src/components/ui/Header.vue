@@ -8,8 +8,7 @@
       </div>
 
       <div class="level-right">
-        <date-header v-if="isWA" />
-        <date-selector v-else />
+        <date-selector v-if="!isWA" />
         <export-modal />
       </div>
     </div>

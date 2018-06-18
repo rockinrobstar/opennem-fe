@@ -21,6 +21,7 @@ export const POINT_SUMMARY = 'POINT_SUMMARY';
 export const POINT_HOVERED = 'POINT_HOVERED';
 
 export const SELECTED_DATES = 'SELECTED_DATES';
+export const DATA_START_DATE = 'DATA_START_DATE';
 export const DATA_END_DATE = 'DATA_END_DATE';
 export const RANGE = 'RANGE';
 export const YEARS = 'YEARS';

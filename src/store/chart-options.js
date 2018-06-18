@@ -2,7 +2,7 @@
 import * as MutationTypes from '@/constants/mutation-types';
 import { DateRanges } from '@/domains/date-ranges';
 
-const defaultDateRange = DateRanges[1]
+const defaultDateRange = DateRanges[8];
 const state = {
   isChartZoomed: false,
   chartTypeTransition: false,

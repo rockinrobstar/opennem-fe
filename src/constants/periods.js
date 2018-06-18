@@ -1,5 +1,9 @@
 export const PERIOD_5_MINS = '5mm';
 export const PERIOD_30_MINS = '30mm';
+export const PERIOD_1_HR = 'hh';
+export const PERIOD_3_HRS = '3hh';
+export const PERIOD_6_HRS = '6hh';
 export const PERIOD_1_DAY = 'DD';
+export const PERIOD_3_DAYS = '3DD';
 export const PERIOD_1_WEEK = 'WW';
 export const PERIOD_1_MONTH = 'MM';

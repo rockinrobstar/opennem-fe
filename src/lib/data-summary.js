@@ -168,6 +168,13 @@ function getPointSummary(domains, date, data) {
   let totalNetPower = 0;
   let totalGrossPower = 0;
 
+  const rawData = data.rawData;
+  const rawDataLength = rawData.length;
+  const dateFromTo = {
+    from: rawData[0].date,
+    to: rawData[rawDataLength - 1].date,
+  };
+
   Object.keys(domains).forEach((domain) => {
     if (validFuelTech(domain)) {
       const average = data[`${domain}Average`];
@@ -192,6 +199,7 @@ function getPointSummary(domains, date, data) {
 
   return {
     date,
+    dateFromTo,
     allData,
     totalNetPower,
     totalGrossPower,

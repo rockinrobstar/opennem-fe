@@ -78,6 +78,16 @@ export const DateRanges = [
     folder: '/history/monthly',
     extension: '_2017',
   },
+  {
+    id: 'customYearly',
+    label: 'Year',
+    minPeriod: Periods.PERIOD_1_HR,
+    groupToPeriods: [Periods.PERIOD_1_HR, Periods.PERIOD_3_HRS, Periods.PERIOD_6_HRS,
+      Periods.PERIOD_1_DAY, Periods.PERIOD_1_WEEK],
+    visType: VisTypes.VIS_TYPE_ENERGY,
+    folder: '',
+    extension: '',
+  },
 ];
 
 function findRange(id) {

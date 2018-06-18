@@ -97,6 +97,18 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  coal_gas_baseload: {
+    colour: '#8B572A',
+    type: 'sources',
+    label: 'Coal Gas Baseload',
+    unit: 'MWh',
+  },
+  fast_response_gas_turbine: {
+    colour: '#FFCD96',
+    type: 'sources',
+    label: 'Gas (FR Turbine)',
+    unit: 'MWh',
+  },
   wind: {
     colour: '#417505',
     type: 'sources',
@@ -117,6 +129,24 @@ const GraphDomains = {
     label: 'Solar (Rooftop)',
     powerUnit: 'MW',
     energyUnit: 'GWh',
+  },
+  fixed_pv: {
+    colour: '#DFCF00',
+    type: 'sources',
+    label: 'Solar (Fixed PV)',
+    unit: 'MWh',
+  },
+  rooftop_pv: {
+    colour: '#F8E71C',
+    type: 'sources',
+    label: 'Solar (Rooftop PV)',
+    unit: 'MWh',
+  },
+  demand: {
+    colour: '#000',
+    type: 'other',
+    label: 'Demand',
+    unit: 'MWh',
   },
   temperature: {
     colour: '#000',

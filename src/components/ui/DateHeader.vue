@@ -3,13 +3,24 @@
     <transition name="slide-fade" mode="out-in">
       <div v-if="!isFetching" class="dropdown" :class="{'is-active': dropdownActive}">
         <div class="point-date" v-if="isPointHovered">
-          {{pointDate}}
+          {{pointFromFormattedDate}}
+          <span v-if="showToDate"> – {{pointToFormattedDate}}</span>
         </div>
         <div v-else>
+          <button class="export-btn button is-small is-rounded is-primary is-inverted"
+            v-show="isChartZoomed"
+            @click="handlePreviousWeekClick">
+            <font-awesome-icon class="fal fa-fw" :icon="iconPreviousWeek" />
+          </button>
           <a class="dropdown-trigger" v-on-clickaway="onClickAway" @click="handleClick">
             {{formattedStartDate}}
             <span v-if="showEndDate"> – {{formattedEndDate}}</span>
           </a>
+          <button class="export-btn button is-small is-rounded is-primary is-inverted"
+            v-show="isChartZoomed"
+            @click="handleNextWeekClick">
+            <font-awesome-icon class="fal fa-fw" :icon="iconNextWeek" />
+          </button>
         </div> 
       </div>
     </transition>
@@ -20,15 +31,20 @@
 import * as moment from 'moment';
 import { mapGetters } from 'vuex';
 import { mixin as clickaway } from 'vue-clickaway';
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+import { faArrowLeft, faArrowRight } from '@fortawesome/fontawesome-pro-light';
+import EventBus from '@/lib/event-bus';
 import { formatDateForDisplay } from '@/lib/formatter';
 import { isMidnight } from '@/lib/data-helpers';
 import { getRegionOffset } from '@/domains/regions';
 import { DateRanges } from '@/domains/date-ranges';
 
-
 export default {
   name: 'date-header',
   mixins: [clickaway],
+  components: {
+    FontAwesomeIcon,
+  },
   data() {
     return {
       dropdownActive: false,
@@ -37,8 +53,10 @@ export default {
   },
   computed: {
     ...mapGetters({
+      isChartZoomed: 'isChartZoomed',
       isFetching: 'isFetching',
       isPointHovered: 'isPointHovered',
+      dataStartDate: 'getDataStartDate',
       dataEndDate: 'getDataEndDate',
       startDate: 'getSelectedStartDate',
       endDate: 'getSelectedEndDate',
@@ -51,6 +69,22 @@ export default {
     pointDate() {
       return formatDateForDisplay(this.$store.getters.getPointSummary.date, this.regionOffset);
     },
+    pointFromDate() {
+      return this.$store.getters.getPointSummary.dateFromTo.from;
+    },
+    pointToDate() {
+      return this.$store.getters.getPointSummary.dateFromTo.to;
+    },
+    pointFromFormattedDate() {
+      return formatDateForDisplay(this.pointFromDate);
+    },
+    pointToFormattedDate() {
+      return formatDateForDisplay(this.pointToDate);
+    },
+    showToDate() {
+      const isSame = moment(this.pointFromDate).isSame(this.pointToDate);
+      return !isSame;
+    },
     formattedStartDate() {
       return formatDateForDisplay(this.$store.getters.getSelectedStartDate, this.regionOffset);
     },
@@ -61,6 +95,12 @@ export default {
       const midnight = isMidnight(this.startDate);
       const aDayApart = moment(this.startDate).isSame(moment(this.endDate).subtract(1, 'day'));
       return !(midnight && aDayApart);
+    },
+    iconNextWeek() {
+      return faArrowRight;
+    },
+    iconPreviousWeek() {
+      return faArrowLeft;
     },
   },
   watch: {
@@ -75,18 +115,29 @@ export default {
       const isActive = !this.dropdownActive;
       this.dropdownActive = isActive;
     },
-    handleSelection(range) {
-      if (range.id !== this.currentRange) {
-        this.$store.dispatch('fetchingData', true);
-        this.$store.dispatch('setChartZoomed', false);
-        this.$store.dispatch('setVisType', range.visType);
-        this.$store.dispatch('currentRange', range.id);
-        this.$store.dispatch('groupToPeriods', range.groupToPeriods);
-        this.$store.dispatch('chartTypeTransition', false);
-      }
-    },
     onClickAway() {
       this.dropdownActive = false;
+    },
+    handleNextWeekClick() {
+      // console.log(this.endDate)
+      // console.log(this.dataEndDate);
+      const start = this.endDate;
+      const end = moment(this.endDate).add(7, 'days').toDate();
+
+      this.dispatchEvents(start, end);
+    },
+    handlePreviousWeekClick() {
+      const end = this.startDate;
+      const start = moment(this.startDate).subtract(7, 'days').toDate();
+      this.dispatchEvents(start, end);
+    },
+    dispatchEvents(start, end) {
+      this.$store.dispatch('saveSelectedDates', {
+        start,
+        end,
+      });
+
+      EventBus.$emit('chart.zoom.startEnd');
     },
   },
 };
@@ -117,6 +168,8 @@ export default {
     padding: 0.5rem 1rem;
     border-radius: 1rem;
     cursor: default;
+    position: relative;
+    top: 1px;
   }
 }
 

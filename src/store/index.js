@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Vue from 'vue';
 import Vuex from 'vuex';
+import * as moment from 'moment';
 import { getSummary, getPointSummary } from '@/lib/data-summary';
 import { dataFilter, dataFilterByLastValuePrecision } from '@/lib/data-helpers';
 import dataTransform from '@/lib/data-transform';
@@ -75,6 +76,19 @@ const actions = {
         handleFetchError(e, commit);
       });
   },
+  fetchWA({ commit, state }, urls) {
+    commit(MutationTypes.FETCHING, true);
+    commit(MutationTypes.ERROR, false);
+    commit(MutationTypes.ERROR_MESSAGE, '');
+
+    getJSON(urls, state.features.localData)
+      .then((responses) => {
+        handleWAResponse(responses, state, commit);
+      })
+      .catch((e) => {
+        handleFetchError(e, commit);
+      });
+  },
   setDomains({ commit, state }, data) {
     commit(MutationTypes.DOMAINS, data);
   },
@@ -104,6 +118,7 @@ function handleFetchResponse(responses, state, commit) {
 
   const endIndex = data.length - 1;
   const endDate = data[endIndex].date;
+  const startDate = data[0].date;
 
   if (isLast24Hrs(state.dates.currentRange)) {
     data = dataFilterByLastValuePrecision(data, '24', 'hour');
@@ -113,6 +128,39 @@ function handleFetchResponse(responses, state, commit) {
 
   commit(MutationTypes.NEM_DATA, data);
   commit(MutationTypes.EXPORT_DATA, data);
+  commit(MutationTypes.DATA_START_DATE, startDate);
+  commit(MutationTypes.DATA_END_DATE, endDate);
+}
+
+function handleWAResponse(responses, state, commit) {
+  let data = [];
+  responses.forEach((r) => {
+    data = r.data.map((d) => {
+      /**
+       * Reformat the data
+       * - date to JS date object
+       * - convert the rest from strings to numbers
+       */
+      const date = moment(d.date);
+      return {
+        date: date.toDate(),
+        coal_gas_baseload: +d.coal_gas_baseload,
+        fast_response_gas_turbine: +d.fast_response_gas_turbine,
+        wind: +d.wind,
+        rooftop_pv: +d.rooftop_pv,
+        fixed_pv: +d.fixed_pv,
+        demand: +d.demand,
+      };
+    });
+  });
+
+  const endIndex = data.length - 1;
+  const endDate = data[endIndex].date;
+  const startDate = data[0].date;
+
+  commit(MutationTypes.NEM_DATA, data);
+  commit(MutationTypes.EXPORT_DATA, data);
+  commit(MutationTypes.DATA_START_DATE, startDate);
   commit(MutationTypes.DATA_END_DATE, endDate);
 }
 

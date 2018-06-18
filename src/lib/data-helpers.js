@@ -1,5 +1,6 @@
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import { GraphDomains } from '@/domains/graphs';
 
 /**
  * filter the data between the start/end dates provided
@@ -146,12 +147,20 @@ function getZoomDatesOnDateLabel(dateLabel, dataEndDate) {
  * @param {*} data
  */
 function getKeys(data) {
+  const keys = [];
   if (data.length > 0) {
     const firstObj = Object.assign({}, data[0]);
     delete firstObj.date;
-    return Object.keys(firstObj);
+
+    // order the keys based on the graphDomains
+    Object.keys(GraphDomains).forEach((domain) => {
+      const found = Object.keys(firstObj).find(key => key === domain);
+      if (found) {
+        keys.push(found);
+      }
+    });
   }
-  return [];
+  return keys;
 }
 
 /**

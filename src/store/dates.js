@@ -11,6 +11,7 @@ const state = {
     start: null,
     end: null,
   },
+  dataStartDate: null,
   dataEndDate: null,
 };
 
@@ -29,6 +30,9 @@ const mutations = {
   },
   [MutationTypes.SELECTED_DATES](state, data) {
     state.selectedDates = data;
+  },
+  [MutationTypes.DATA_START_DATE](state, data) {
+    state.dataStartDate = data;
   },
   [MutationTypes.DATA_END_DATE](state, data) {
     state.dataEndDate = data;
@@ -54,6 +58,9 @@ const getters = {
   getSelectedEndDate: state => {
     return state.selectedDates.end;
   },
+  getDataStartDate: state => {
+    return state.dataStartDate;
+  },
   getDataEndDate: state => {
     return state.dataEndDate;
   },
@@ -74,6 +81,9 @@ const actions = {
   },
   saveSelectedDates({ commit, state }, data) {
     commit(MutationTypes.SELECTED_DATES, data);
+  },
+  setDataStartDate({ commit, state }, data) {
+    commit(MutationTypes.DATA_START_DATE, data);
   },
   setDataEndDate({ commit, state }, data) {
     commit(MutationTypes.DATA_END_DATE, data);
