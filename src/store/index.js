@@ -13,6 +13,7 @@ import * as VisTypes from '@/constants/vis-types';
 
 import nemData from './nem-data';
 import chartOptions from './chart-options';
+import chartColours from './chart-colours';
 import exportStore from './export';
 import summary from './summary';
 import dates from './dates';
@@ -183,6 +184,7 @@ const store = new Vuex.Store({
   modules: {
     nemData,
     chartOptions,
+    chartColours,
     exportStore,
     summary,
     dates,

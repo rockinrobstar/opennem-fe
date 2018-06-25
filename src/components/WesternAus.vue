@@ -13,33 +13,29 @@
     </div>
   </transition>
   
-  <transition name="slide-fade">
-    <div>
-      <div class="columns is-desktop is-variable is-1" v-show="!isFetching && !error">
-        <div class="column" :class="{ export: isExportPng }">
-          <div id="export-container">
-            <export-png-header v-if="isExportPng" />
+  <div class="columns is-desktop is-variable is-1" v-show="!isFetching && !error">
+    <div class="column" :class="{ export: isExportPng }">
+      <div id="export-container">
+        <export-png-header v-if="isExportPng" />
 
-            <div style="position:relative">
-              <panel-button />
-              <wa-chart :chartData="nemData" />
-              <div v-if="isExportPng">
-                <wa-summary v-if="showSummaryPanel" />
-                <export-legend v-else />
-              </div>
-            </div>
-            
-            <export-png-footer v-if="isExportPng" :hideTopBorder="showSummaryPanel" />
+        <div style="position:relative">
+          <panel-button />
+          <wa-chart :chartData="nemData" />
+          <div v-if="isExportPng">
+            <wa-summary v-if="showSummaryPanel" />
+            <export-legend v-else />
           </div>
         </div>
+        
+        <export-png-footer v-if="isExportPng" :hideTopBorder="showSummaryPanel" />
       </div>
-      <div class="columns is-centered">
-        <div class="column is-narrow" v-show="!isExportPng">
-          <wa-summary />
-        </div>
-      </div>
-    </div>  
-  </transition>
+    </div>
+  </div>
+  <div class="columns is-centered" v-show="!isFetching && !error">
+    <div class="column is-narrow" v-show="!isExportPng">
+      <wa-summary />
+    </div>
+  </div> 
 </div>
 </template>
 
@@ -62,7 +58,6 @@ import UiZoomOutButton from './ui/ZoomOutButton';
 import UiLoader from './ui/Loader';
 import DateHeader from './ui/DateHeader';
 
-
 export default {
   components: {
     WaChart,
@@ -76,10 +71,14 @@ export default {
     DateHeader,
   },
   created() {
+    const colours = this.colourPalette.colours;
+    const updatedDomains = this.updateDomains(colours);
+
     this.$store.dispatch('setExportRegion', 'Western Australia');
-    this.$store.dispatch('setDomains', GraphDomains);
+    this.$store.dispatch('setDomains', updatedDomains);
     this.$store.dispatch('localData', true);
     this.$store.dispatch('setVisType', VisTypes.VIS_TYPE_ENERGY);
+
     this.fetch();
   },
   mounted() {
@@ -111,6 +110,7 @@ export default {
       hasInterval: 'hasInterval',
       currentInterval: 'currentInterval',
       yearsWeeks: 'yearsWeeks',
+      colourPalette: 'colourPalette',
     }),
     records() {
       return this.$route.query.records;
@@ -132,6 +132,13 @@ export default {
         end,
       });
     },
+    colourPalette(newPalette) {
+      const colours = newPalette.colours;
+      const updatedDomains = this.updateDomains(colours);
+
+      this.$store.dispatch('setDomains', updatedDomains);
+      this.fetch();
+    },
   },
   methods: {
     downloadPng() {
@@ -142,6 +149,23 @@ export default {
             FileSaver.saveAs(blob, `${this.exportName}.png`);
           });
       }, 5);
+    },
+    updateDomains(colours) {
+      const updated = {};
+
+      Object.keys(GraphDomains).forEach((key) => {
+        const d = GraphDomains[key];
+        updated[key] = {
+          colour: colours[key] || d.colour,
+          type: d.type,
+          label: d.label,
+          powerUnit: d.powerUnit || '',
+          energyUnit: d.energyUnit || '',
+          unit: d.unit || '',
+        };
+      });
+
+      return updated;
     },
     fetch() {
       const urls = ['wa/close_collie_and_muja.json'];

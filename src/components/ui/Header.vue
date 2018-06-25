@@ -9,7 +9,8 @@
 
       <div class="level-right">
         <date-selector v-if="!isWA" />
-        <export-modal />
+        <export-modal v-if="!isWA" />
+        <colour-palette-selector />
       </div>
     </div>
   </nav>
@@ -19,6 +20,7 @@
 import { mapGetters } from 'vuex';
 import RegionSelector from './RegionSelector';
 import DateSelector from './DateSelector';
+import ColourPaletteSelector from './ColourPaletteSelector';
 import DateHeader from './DateHeader';
 import ExportHeader from '../Export/Header';
 import ExportModal from '../Export/Modal';
@@ -28,6 +30,7 @@ export default {
   components: {
     RegionSelector,
     DateSelector,
+    ColourPaletteSelector,
     DateHeader,
     ExportHeader,
     ExportModal,
