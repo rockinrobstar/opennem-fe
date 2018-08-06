@@ -34,12 +34,24 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  brown_coal_emissions_volume: {
+    colour: '#8B572A',
+    type: 'emissions',
+    label: 'Brown Coal',
+    unit: '',
+  },
   black_coal: {
     colour: '#121212',
     type: 'sources',
     label: 'Black Coal',
     powerUnit: 'MW',
     energyUnit: 'GWh',
+  },
+  black_coal_emissions_volume: {
+    colour: '#121212',
+    type: 'emissions',
+    label: 'Black Coal',
+    unit: '',
   },
   biomass: {
     colour: '#A3886F',
@@ -54,6 +66,12 @@ const GraphDomains = {
     label: 'Distillate',
     powerUnit: 'MW',
     energyUnit: 'GWh',
+  },
+  distillate_emissions_volume: {
+    colour: '#F35020',
+    type: 'emissions',
+    label: 'Distillate',
+    unit: '',
   },
   battery_discharging: {
     colour: '#00A2FA',
@@ -76,12 +94,24 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  gas_steam_emissions_volume: {
+    colour: '#F48E1B',
+    type: 'emissions',
+    label: 'Gas (Steam)',
+    unit: '',
+  },
   gas_ccgt: {
     colour: '#FDB462',
     type: 'sources',
     label: 'Gas (CCGT)',
     powerUnit: 'MW',
     energyUnit: 'GWh',
+  },
+  gas_ccgt_emissions_volume: {
+    colour: '#FDB462',
+    type: 'emissions',
+    label: 'Gas (CCGT)',
+    unit: '',
   },
   gas_ocgt: {
     colour: '#FFCD96',
@@ -90,12 +120,24 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  gas_ocgt_emissions_volume: {
+    colour: '#FFCD96',
+    type: 'emissions',
+    label: 'Gas (OCGT)',
+    unit: '',
+  },
   gas_recip: {
     colour: '#F9DCBC',
     type: 'sources',
     label: 'Gas (Reciprocating)',
     powerUnit: 'MW',
     energyUnit: 'GWh',
+  },
+  gas_recip_emissions_volume: {
+    colour: '#F9DCBC',
+    type: 'emissions',
+    label: 'Gas (Reciprocating)',
+    unit: '',
   },
   wind: {
     colour: '#417505',
