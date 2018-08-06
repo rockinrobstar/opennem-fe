@@ -20,6 +20,24 @@
           <span class="label-text">Show Records table</span>
         </label>
       </div>
+      <div class="panel-block">
+        <label>
+          <input type="checkbox" v-model="recordsTable">
+          <span class="label-text">Show Records table</span>
+        </label>
+      </div>
+      <div class="panel-block">
+        <label>
+          <input type="checkbox" v-model="emissionsVolume">
+          <span class="label-text">Show Emission Volume</span>
+        </label>
+      </div>
+      <div class="panel-block">
+        <label>
+          <input type="checkbox" v-model="emissionsIntensity">
+          <span class="label-text">Show Emission Intensity</span>
+        </label>
+      </div>
 
       <div class="panel-block" style="border-top: 1px solid #000;">
         <label>
@@ -57,6 +75,22 @@ export default {
       },
       set(newValue) {
         this.$store.dispatch('recordsTable', newValue);
+      },
+    },
+    emissionsVolume: {
+      get() {
+        return this.$store.getters.emissionsVolume;
+      },
+      set(newValue) {
+        this.$store.dispatch('emissionsVolume', newValue);
+      },
+    },
+    emissionsIntensity: {
+      get() {
+        return this.$store.getters.emissionsIntensity;
+      },
+      set(newValue) {
+        this.$store.dispatch('emissionsIntensity', newValue);
       },
     },
   },
