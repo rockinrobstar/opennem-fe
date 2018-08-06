@@ -116,6 +116,64 @@ function getFieldMappings(keys) {
 }
 
 /**
+ * amCharts Emissions Volume graphs
+ */
+function getEVStockGraphs(domains, keys, unit) {
+  const graphs = [];
+
+  keys.forEach((ftKey) => {
+    const colour = domains[ftKey].colour;
+    const negativeFillAlphas = 0.8;
+    const fillAlphas = 0.7;
+    const fillColors = colour;
+    const lineAlpha = 0;
+    const lineThickness = 1;
+    const lineColor = colour;
+    const type = 'line';
+
+    const graph = {
+      id: ftKey,
+      valueField: ftKey,
+      type,
+      fillAlphas,
+      fillColors,
+      negativeFillAlphas,
+      negativeFillColors: colour,
+      lineAlpha,
+      lineThickness,
+      lineColor,
+      useDataSetColors: false,
+      columnWidth: 0.8,
+      showBalloon: false,
+      periodValue: 'Average',
+      balloonFunction: (item) => {
+        let balloonTxt = '';
+
+        if (!isLoads(graph.id) && item.values.value > 0) {
+          const precision = '0,0';
+          const value = formatNumberForDisplay(item.dataContext[`${graph.id}Average`], precision);
+          const ftLabel = domains[graph.id].label;
+          const displayValue = `${value} ${unit}`;
+
+          balloonTxt = `
+            <div style="font-size: 1.1em;">
+              <span 
+                style="display: inline-block; width: 13px; 
+                  height: 13px; position: relative; top: 2px; 
+                  margin-right: 5px; background: ${colour};"></span>
+              ${ftLabel}: <strong> ${displayValue}</strong>
+            </div>
+          `;
+        }
+        return balloonTxt;
+      },
+    };
+    graphs.push(graph);
+  });
+  return graphs;
+}
+
+/**
  * amCharts Stock graphs
  */
 function getStockGraphs(domains, keys, graphType, unit) {
@@ -234,6 +292,7 @@ export {
   getChartConfig,
   getFieldMappings,
   getStockGraphs,
+  getEVStockGraphs,
   getNemGuides,
   getMinPeriod,
   getGroupToPeriods,

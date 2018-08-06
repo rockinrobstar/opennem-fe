@@ -12,6 +12,7 @@ import EventBus from '@/lib/event-bus';
 import {
   getFieldMappings,
   getStockGraphs,
+  getEVStockGraphs,
   getNemGuides,
   getChartConfig,
 } from '@/lib/chart-helpers';
@@ -28,6 +29,7 @@ import updateRouterStartEnd from '@/lib/app-router';
 import {
   powerPanel,
   energyPanel,
+  energyEmissionsPanels,
 } from './config';
 
 export default {
@@ -107,7 +109,7 @@ export default {
     setupChart() {
       const panels = this.isPower ?
         powerPanel(this.getPanelListeners()) :
-        energyPanel(this.getPanelListeners());
+        energyEmissionsPanels(this.getPanelListeners());
       const config = getChartConfig({
         dataSets: [],
         panels,
@@ -147,7 +149,12 @@ export default {
       const graphType = this.isPower ? 'line' : 'step';
       // const showWeekends = !this.isPower;
 
+      console.log(this.domains, this.keys);
+      console.log(this.chart.panels.length);
       this.chart.panels[0].stockGraphs = getStockGraphs(this.domains, this.keys, graphType, unit);
+      if (this.chart.panels.length === 2) {
+        this.chart.panels[1].stockGraphs = getEVStockGraphs(this.domains, this.keys, '??');
+      }
       this.chart.panels[0].guides = this.isPower ? getNemGuides(this.chartData, false) : [];
       // this.chart.panels[0].guides = getNemGuides(this.chartData, showWeekends);
       this.chart.validateData();

@@ -35,7 +35,7 @@ export const DateRanges = [
   },
   {
     id: 'last30days',
-    label: 'Last 30 days',
+    label: 'Last 30 days (test)',
     minPeriod: Periods.PERIOD_1_DAY,
     groupToPeriods: [Periods.PERIOD_1_DAY],
     visType: VisTypes.VIS_TYPE_ENERGY,

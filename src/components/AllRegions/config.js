@@ -1,4 +1,4 @@
-import { getGenerationPanel, getEnergyPanel } from '@/lib/chart-panels';
+import { getGenerationPanel, getEnergyPanel, getEmissionsVolumePanel } from '@/lib/chart-panels';
 
 function powerPanel(listeners) {
   return [
@@ -12,7 +12,15 @@ function energyPanel(listeners) {
   ];
 }
 
+function energyEmissionsPanels(listeners) {
+  return [
+    getEnergyPanel(listeners),
+    getEmissionsVolumePanel(listeners),
+  ];
+}
+
 export {
   powerPanel,
   energyPanel,
+  energyEmissionsPanels,
 };

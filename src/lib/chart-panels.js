@@ -335,9 +335,50 @@ function getPricePanels(listeners, priceField) {
   }];
 }
 
+/**
+ * Emissions Volume Panel
+ */
+function getEmissionsVolumePanel(listeners) {
+  return {
+    allLabels: [
+      { text: 'Emissions Volume', bold: true, x: 5, y: 5 },
+      { text: 'tCO2e', x: 70, y: 7, color: '#999', size: 9 },
+    ],
+    showCategoryAxis: true,
+    addClassNames: true,
+    chartCursor: {
+      enabled: true,
+    },
+    categoryAxis: {},
+    valueAxes: [
+      {
+        id: 'v2',
+        dashLength: 6,
+        zeroGridAlpha: 0,
+        stackType: 'regular',
+        guides: [
+          {
+            includeGuidesInMinMax: false,
+            value: 0,
+            dashLength: 0,
+            lineColor: '#000',
+            lineThickness: 1,
+            lineAlpha: 1,
+          },
+        ],
+      },
+    ],
+    stockGraphs: [],
+    guides: [],
+    listeners,
+    stockLegend: { enabled: false },
+  };
+}
+
 export {
   getGenerationPanel,
   getEnergyPanel,
   getTemperaturePanel,
   getPricePanels,
+  getEmissionsVolumePanel,
 };

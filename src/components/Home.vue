@@ -144,11 +144,15 @@ export default {
     },
     fetch() {
       const range = findRange(this.currentRange);
-      const visType = this.chartTypeTransition ? this.visType : range.visType;
+      let visType = this.chartTypeTransition ? this.visType : range.visType;
+
+      if (this.currentRange === 'last30days') {
+        visType = 'testing/energy'
+      }
+
       const extension = this.chartTypeTransition ? this.yearsWeeks : range.extension;
       const interval = this.chartTypeTransition ? `/history/${this.currentInterval}` : range.folder;
       const prependUrl = `${visType}${interval}`;
-
       const urls = this.chartTypeTransition ?
         this.yearsWeeks.map(w => `${prependUrl}/nem${w}.json`) :
         [`${prependUrl}/nem${extension}.json`];
