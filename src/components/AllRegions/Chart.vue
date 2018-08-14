@@ -13,6 +13,7 @@ import {
   getFieldMappings,
   getStockGraphs,
   getEVStockGraphs,
+  getEIStockGraphs,
   getNemGuides,
   getChartConfig,
 } from '@/lib/chart-helpers';
@@ -117,9 +118,10 @@ export default {
 
       config.panels[0].categoryAxis.listeners = this.getCategoryAxisListeners();
 
-      if (panels.length === 2) {
-        config.panels[0].percentHeight = 70;
-        config.panels[1].percentHeight = 30;
+      if (panels.length === 3) {
+        config.panels[0].percentHeight = 50;
+        config.panels[1].percentHeight = 35;
+        config.panels[2].percentHeight = 15;
       }
 
       this.chart = window.AmCharts.makeChart(this.$el, config);
@@ -155,9 +157,10 @@ export default {
       // const showWeekends = !this.isPower;
 
       this.chart.panels[0].stockGraphs = getStockGraphs(this.domains, this.keys, graphType, unit);
-      if (this.chart.panels.length === 2) {
+      if (this.chart.panels.length === 3) {
         const emissionVolKeys = this.keys.filter(key => key.includes('_emissions_volume'));
-        this.chart.panels[1].stockGraphs = getEVStockGraphs(this.domains, emissionVolKeys, '??');
+        this.chart.panels[1].stockGraphs = getEVStockGraphs(this.domains, emissionVolKeys, 'tCO2e');
+        this.chart.panels[2].stockGraphs = getEIStockGraphs(this.domains, ['emissionsIntensity'], '');
       }
       this.chart.panels[0].guides = this.isPower ? getNemGuides(this.chartData, false) : [];
       // this.chart.panels[0].guides = getNemGuides(this.chartData, showWeekends);
@@ -354,7 +357,7 @@ export default {
   height: 350px;
 
   @include desktop {
-    height: 550px;
+    height: 650px;
   }
 }
 
