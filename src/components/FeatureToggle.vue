@@ -22,12 +22,6 @@
       </div>
       <div class="panel-block">
         <label>
-          <input type="checkbox" v-model="recordsTable">
-          <span class="label-text">Show Records table</span>
-        </label>
-      </div>
-      <div class="panel-block">
-        <label>
           <input type="checkbox" v-model="emissionsVolume">
           <span class="label-text">Show Emission Volume</span>
         </label>
