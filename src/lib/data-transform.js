@@ -1,7 +1,7 @@
 /* eslint-disable */
 import * as moment from 'moment';
 import History from '@/models/History';
-import { isPrice, isTemperature, isImports, isLoads } from '@/domains/graphs'; 
+import { isPrice, isTemperature, isImports, isLoads, isEmissions, isValidFuelTech } from '@/domains/graphs'; 
 import { parseInterval, compareAndGetShortestInterval } from './duration-parser';
 
 function shouldInvertValue(id) {
@@ -172,6 +172,22 @@ export default function(domains, data) {
   const updatedChartData = newChartData.filter(d =>
     moment(d.date).isSameOrAfter(moment(genTimes.start)) &&
     moment(d.date).isSameOrBefore(moment(genTimes.end)));
+
+  updatedChartData.forEach((d) => {
+    let sumEmissions = 0;
+    let sumEnergy = 0;
+    Object.keys(d).forEach((key) => {
+      if (key !== 'date') {
+        if (isEmissions(key)) {
+          sumEmissions += d[key];
+        }
+        if (isValidFuelTech(key)) {
+          sumEnergy += d[key];
+        }
+      }
+    })
+    d.emissionsIntensity = sumEmissions / sumEnergy;
+  });
 
   return updatedChartData.slice(0);
 }

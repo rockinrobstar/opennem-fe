@@ -216,6 +216,12 @@ const GraphDomains = {
     categoryId: 'price',
     unit: '$/MWh',
   },
+  emissionsIntensity: {
+    colour: '#000',
+    type: 'other',
+    label: 'Emissions Intensity',
+    unit: '',
+  },
 };
 
 function getUnit(domain, visType) {
@@ -230,6 +236,11 @@ function getUnit(domain, visType) {
 function isValidFuelTech(id) {
   const domain = GraphDomains[id];
   return domain.type === 'sources' || domain.type === 'loads';
+}
+
+function isEmissions(id) {
+  const domain = GraphDomains[id];
+  return domain.type === 'emissions';
 }
 
 function isRenewableFuelTech(id) {
@@ -291,4 +302,5 @@ export {
   isRenewableFuelTech,
   isPrice,
   isTemperature,
+  isEmissions,
 };
