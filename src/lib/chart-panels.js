@@ -342,9 +342,9 @@ function getEmissionsVolumePanel(listeners) {
   return {
     allLabels: [
       { text: 'Emissions Volume', bold: true, x: 5, y: 5 },
-      { text: 'tCO2e', x: 70, y: 7, color: '#999', size: 9 },
+      { text: 'tCO2e', x: 110, y: 7, color: '#999', size: 9 },
     ],
-    showCategoryAxis: true,
+    showCategoryAxis: false,
     addClassNames: true,
     chartCursor: {
       enabled: true,

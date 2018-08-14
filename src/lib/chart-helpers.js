@@ -120,16 +120,15 @@ function getFieldMappings(keys) {
  */
 function getEVStockGraphs(domains, keys, unit) {
   const graphs = [];
-
   keys.forEach((ftKey) => {
     const colour = domains[ftKey].colour;
     const negativeFillAlphas = 0.8;
-    const fillAlphas = 0.7;
+    const fillAlphas = 0.5;
     const fillColors = colour;
-    const lineAlpha = 0;
+    const lineAlpha = 1;
     const lineThickness = 1;
     const lineColor = colour;
-    const type = 'line';
+    const type = 'smoothedLine';
 
     const graph = {
       id: ftKey,
@@ -143,7 +142,6 @@ function getEVStockGraphs(domains, keys, unit) {
       lineThickness,
       lineColor,
       useDataSetColors: false,
-      columnWidth: 0.8,
       showBalloon: false,
       periodValue: 'Average',
       balloonFunction: (item) => {

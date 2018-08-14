@@ -117,6 +117,11 @@ export default {
 
       config.panels[0].categoryAxis.listeners = this.getCategoryAxisListeners();
 
+      if (panels.length === 2) {
+        config.panels[0].percentHeight = 70;
+        config.panels[1].percentHeight = 30;
+      }
+
       this.chart = window.AmCharts.makeChart(this.$el, config);
 
       this.chart.addListener('init', this.onChartInit);
@@ -149,11 +154,10 @@ export default {
       const graphType = this.isPower ? 'line' : 'step';
       // const showWeekends = !this.isPower;
 
-      console.log(this.domains, this.keys);
-      console.log(this.chart.panels.length);
       this.chart.panels[0].stockGraphs = getStockGraphs(this.domains, this.keys, graphType, unit);
       if (this.chart.panels.length === 2) {
-        this.chart.panels[1].stockGraphs = getEVStockGraphs(this.domains, this.keys, '??');
+        const emissionVolKeys = this.keys.filter(key => key.includes('_emissions_volume'));
+        this.chart.panels[1].stockGraphs = getEVStockGraphs(this.domains, emissionVolKeys, '??');
       }
       this.chart.panels[0].guides = this.isPower ? getNemGuides(this.chartData, false) : [];
       // this.chart.panels[0].guides = getNemGuides(this.chartData, showWeekends);
