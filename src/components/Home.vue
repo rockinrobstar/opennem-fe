@@ -147,7 +147,7 @@ export default {
       let visType = this.chartTypeTransition ? this.visType : range.visType;
 
       if (this.currentRange === 'last30days') {
-        visType = 'testing/energy'
+        visType = 'testing/energy';
       }
 
       const extension = this.chartTypeTransition ? this.yearsWeeks : range.extension;

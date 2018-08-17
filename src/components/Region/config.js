@@ -3,6 +3,8 @@ import {
   getEnergyPanel,
   getPricePanels,
   getTemperaturePanel,
+  getEmissionsVolumePanel,
+  getEmissionsIntensityPanel,
 } from '@/lib/chart-panels';
 
 function getAllPanelsGeneration(listeners, priceField, temperatureField, hasMinMax, showBullets) {
@@ -18,6 +20,17 @@ function getAllPanelsEnergy(listeners, priceField, temperatureField, hasMinMax, 
     getEnergyPanel(listeners),
     ...getPricePanels(listeners, priceField), // 3 panels in price
     getTemperaturePanel(listeners, temperatureField, hasMinMax, showBullets),
+  ];
+}
+
+function getAllPanelsEnergyEmissions(listeners, priceField,
+  temperatureField, hasMinMax, showBullets) {
+  return [
+    getEnergyPanel(listeners),
+    ...getPricePanels(listeners, priceField), // 3 panels in price
+    getTemperaturePanel(listeners, temperatureField, hasMinMax, showBullets),
+    getEmissionsVolumePanel(listeners),
+    getEmissionsIntensityPanel(listeners),
   ];
 }
 
@@ -66,6 +79,7 @@ function getGenerationTemperaturePanelPercentHeight() {
 export {
   getAllPanelsGeneration,
   getAllPanelsEnergy,
+  getAllPanelsEnergyEmissions,
   getGenerationAndPricePanels,
   getGenerationAndTemperaturePanels,
   generationPanel,

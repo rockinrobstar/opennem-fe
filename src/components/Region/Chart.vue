@@ -13,6 +13,8 @@ import EventBus from '@/lib/event-bus';
 import {
   getFieldMappings,
   getStockGraphs,
+  getEVStockGraphs,
+  getEIStockGraphs,
   getNemGuides,
   getChartConfig,
 } from '@/lib/chart-helpers';
@@ -30,6 +32,7 @@ import { isLast24Hrs } from '@/domains/date-ranges';
 import {
   getAllPanelsGeneration,
   getAllPanelsEnergy,
+  getAllPanelsEnergyEmissions,
   getGenerationAndPricePanels,
   getGenerationAndTemperaturePanels,
   generationPanel,
@@ -186,7 +189,14 @@ export default {
             hasMinMax,
             showBullets,
           ) :
-          getAllPanelsEnergy(
+          // getAllPanelsEnergy(
+          //   this.getPanelListeners(),
+          //   priceField,
+          //   temperatureField,
+          //   hasMinMax,
+          //   showBullets,
+          // );
+          getAllPanelsEnergyEmissions(
             this.getPanelListeners(),
             priceField,
             temperatureField,
@@ -230,6 +240,15 @@ export default {
           config.panels[2].percentHeight = 13;
           config.panels[3].percentHeight = 7;
           break;
+        case 7:
+          config.panels[0].percentHeight = 30;
+          config.panels[1].percentHeight = 7;
+          config.panels[2].percentHeight = 13;
+          config.panels[3].percentHeight = 5;
+          config.panels[4].percentHeight = 15;
+          config.panels[5].percentHeight = 13;
+          config.panels[6].percentHeight = 7;
+          break;
         case 5:
         default:
           config.panels[0].percentHeight = 50;
@@ -272,6 +291,12 @@ export default {
       const graphType = this.isPower ? 'line' : 'step';
 
       this.chart.panels[0].stockGraphs = getStockGraphs(this.domains, this.keys, graphType, unit);
+
+      if (this.chart.panels.length === 7) {
+        const emissionVolKeys = this.keys.filter(key => key.includes('_emissions_volume'));
+        this.chart.panels[5].stockGraphs = getEVStockGraphs(this.domains, emissionVolKeys, 'tCO2e');
+        this.chart.panels[6].stockGraphs = getEIStockGraphs(this.domains, ['emissionsIntensity'], '');
+      }
 
       // add Guides
       // const showWeekends = !this.isPower;
@@ -509,7 +534,7 @@ export default {
   height: 450px;
 
   @include desktop {
-    height: 620px;
+    height: 650px;
   }
 
   &.one-panel {
