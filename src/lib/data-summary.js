@@ -110,7 +110,17 @@ function getSummary(domains, data, isPower) {
 
       // calculate the price * ft total
       const dataFTPrice = data.map((d, i) => {
-        const rrp = data[i].price ? data[i].price : 0;
+        // price field can be price or volum_weight_price
+        const price = data[i].price;
+        const volWeightedPrice = data[i].volume_weighted_price;
+        let rrp = 0;
+
+        if (price) {
+          rrp = price;
+        } else if (volWeightedPrice) {
+          rrp = volWeightedPrice;
+        }
+        // const rrp = data[i].price ? data[i].price : 0;
         return d[domain] * rrp;
       });
 
@@ -171,7 +181,9 @@ function getPointSummary(domains, date, data) {
   Object.keys(domains).forEach((domain) => {
     if (validFuelTech(domain)) {
       const average = data[`${domain}Average`];
+
       allData[domain] = average;
+      allData[`${domain}_market_value`] = data[`${domain}_market_value`];
 
       if (average !== undefined) {
         totalNetPower += average;

@@ -22,9 +22,10 @@ function getKeysAndStartEndGenerationTime(domains, data) {
   Object.keys(domains).forEach((domain) => {
     const fuelTech = data.find(d => d.fuel_tech === domain);
     const fuelTechEV = data.find(d => `${d.fuel_tech}_emissions_volume` === domain);
+    const fuelTechMV = data.find(d => `${d.fuel_tech}_market_value` === domain);
     const otherTypes = data.find(d => d.type === domain);
 
-    if (fuelTech || fuelTechEV || otherTypes) {
+    if (fuelTech || fuelTechEV || fuelTechMV || otherTypes) {
       keys.push(domain);
 
       if (!endGenTime && fuelTech) {
@@ -93,6 +94,9 @@ export default function(domains, data) {
       d.type === 'emissions' &&
       `${d.fuel_tech}_emissions_volume` === domain
     );
+    const fuelTechMVData = data.find(d => 
+      d.type === 'market_value' &&
+      `${d.fuel_tech}_market_value` === domain);
 
     const priceOrTemperatureData = data.find(d => d.type === domain);
     let history = null;
@@ -105,11 +109,13 @@ export default function(domains, data) {
       }
     } else if (fuelTechEVData) {
       history = new History(fuelTechEVData.history);
+    } else if (fuelTechMVData) {
+      history = new History(fuelTechMVData.history);
     } else if (priceOrTemperatureData) {
       history = new History(priceOrTemperatureData.history);
     }
 
-    if (fuelTechData || fuelTechEVData || priceOrTemperatureData) {
+    if (fuelTechData || fuelTechEVData || fuelTechMVData || priceOrTemperatureData) {
       const duration = parseInterval(history.interval);
       allIntervals[domain] = duration;
 

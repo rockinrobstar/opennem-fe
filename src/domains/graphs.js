@@ -6,12 +6,26 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  pumps_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Pumps Market Value',
+    categoryId: 'price',
+    unit: '$',
+  },
   battery_charging: {
     colour: '#fff',
     type: 'loads',
     label: 'Battery (Charging)',
     powerUnit: 'MW',
     energyUnit: 'GWh',
+  },
+  battery_charging_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Battery (Charging) Market Value',
+    categoryId: 'price',
+    unit: '$',
   },
   exports: {
     colour: '#fff',
@@ -20,6 +34,13 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  exports_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Exports Market Value',
+    categoryId: 'price',
+    unit: '$',
+  },
   imports: {
     colour: '#44146F',
     type: 'sources',
@@ -27,12 +48,26 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  imports_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Imports Market Value',
+    categoryId: 'price',
+    unit: '$',
+  },
   brown_coal: {
     colour: '#8B572A',
     type: 'sources',
     label: 'Brown Coal',
     powerUnit: 'MW',
     energyUnit: 'GWh',
+  },
+  brown_coal_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Brown Coal Market Value',
+    categoryId: 'price',
+    unit: '$',
   },
   brown_coal_emissions_volume: {
     colour: '#8B572A',
@@ -47,6 +82,13 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  black_coal_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Black Coal Market Value',
+    categoryId: 'price',
+    unit: '$',
+  },
   black_coal_emissions_volume: {
     colour: '#121212',
     type: 'emissions',
@@ -60,12 +102,26 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  biomass_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Biomass Market Value',
+    categoryId: 'price',
+    unit: '$',
+  },
   distillate: {
     colour: '#F35020',
     type: 'sources',
     label: 'Distillate',
     powerUnit: 'MW',
     energyUnit: 'GWh',
+  },
+  distillate_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Distillate Market Value',
+    categoryId: 'price',
+    unit: '$',
   },
   distillate_emissions_volume: {
     colour: '#F35020',
@@ -80,6 +136,13 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  battery_discharging_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Battery (Discharging) Market Value',
+    categoryId: 'price',
+    unit: '$',
+  },
   hydro: {
     colour: '#4582B4',
     type: 'sources',
@@ -87,12 +150,26 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  hydro_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Hydro Market Value',
+    categoryId: 'price',
+    unit: '$',
+  },
   gas_steam: {
     colour: '#F48E1B',
     type: 'sources',
     label: 'Gas (Steam)',
     powerUnit: 'MW',
     energyUnit: 'GWh',
+  },
+  gas_steam_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Gas (Steam) Market Value',
+    categoryId: 'price',
+    unit: '$',
   },
   gas_steam_emissions_volume: {
     colour: '#F48E1B',
@@ -107,6 +184,13 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  gas_ccgt_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Gas (CCGT) Market Value',
+    categoryId: 'price',
+    unit: '$',
+  },
   gas_ccgt_emissions_volume: {
     colour: '#FDB462',
     type: 'emissions',
@@ -119,6 +203,13 @@ const GraphDomains = {
     label: 'Gas (OCGT)',
     powerUnit: 'MW',
     energyUnit: 'GWh',
+  },
+  gas_ocgt_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Gas (OCGT) Market Value',
+    categoryId: 'price',
+    unit: '$',
   },
   gas_ocgt_emissions_volume: {
     colour: '#FFCD96',
@@ -133,6 +224,13 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  gas_recip_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Gas (Reciprocating) Market Value',
+    categoryId: 'price',
+    unit: '$',
+  },
   gas_recip_emissions_volume: {
     colour: '#F9DCBC',
     type: 'emissions',
@@ -146,6 +244,13 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  wind_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Wind Market Value',
+    categoryId: 'price',
+    unit: '$',
+  },
   solar: {
     colour: '#DFCF00',
     type: 'sources',
@@ -153,12 +258,26 @@ const GraphDomains = {
     powerUnit: 'MW',
     energyUnit: 'GWh',
   },
+  solar_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Solar (Utility) Market Value',
+    categoryId: 'price',
+    unit: '$',
+  },
   rooftop_solar: {
     colour: '#F8E71C',
     type: 'sources',
     label: 'Solar (Rooftop)',
     powerUnit: 'MW',
     energyUnit: 'GWh',
+  },
+  rooftop_solar_market_value: {
+    colour: '#000',
+    type: 'market_value',
+    label: 'Solar (Rooftop) Market Value',
+    categoryId: 'price',
+    unit: '$',
   },
   temperature: {
     colour: '#000',
@@ -255,6 +374,11 @@ function isPrice(id) {
   return id === 'price' || id === 'volume_weighted_price';
 }
 
+function isMarketValue(id) {
+  const domain = GraphDomains[id];
+  return domain.type === 'market_value';
+}
+
 function isTemperature(id) {
   return id === 'temperature' ||
   id === 'temperature_mean' ||
@@ -303,4 +427,5 @@ export {
   isPrice,
   isTemperature,
   isEmissions,
+  isMarketValue,
 };

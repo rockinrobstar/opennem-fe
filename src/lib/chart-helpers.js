@@ -128,7 +128,7 @@ function getEVStockGraphs(domains, keys, unit) {
     const lineAlpha = 1;
     const lineThickness = 1;
     const lineColor = colour;
-    const type = 'smoothedLine';
+    const type = 'step';
 
     const graph = {
       id: ftKey,

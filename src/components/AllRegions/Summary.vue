@@ -19,6 +19,10 @@
           <span>Contribution</span>
           <small>%</small>
         </th>
+        <th class="column-header has-text-right">
+          <span>Market Value</span>
+          <small>$</small>
+        </th>
       </tr>
     </thead>
     <thead>
@@ -38,6 +42,7 @@
             {{ rangeSummary.totalGrossEnergy | formatNumber('0,0.0') }}
           </div>
         </th>
+        <th></th>
         <th></th>
       </tr>
     </thead>
@@ -71,6 +76,14 @@
             {{ getContribution(row.range.power, rangeSummary.totalGrossPower) | formatNumber('0,0.0') }}<span v-if="hasValue(getContribution(row.range.power, rangeSummary.totalGrossPower))">%</span>
           </div>
         </td>
+        <td class="cell-value" :class="{ 'hovered': isPointHovered }">
+          <div v-if="isPointHovered">
+            {{ pointSummary.allData[row.id + '_market_value'] | roundToNearestThousands | formatNumber('$0,0') }}
+          </div>
+          
+          <div v-else>
+          </div>
+        </td>
       </tr>
     </tbody>
     
@@ -78,6 +91,7 @@
       <tr>
         <th class="row-header">Loads</th>
         <th class="cell-value"></th>
+        <th></th>
         <th></th>
       </tr>
     </thead>
@@ -97,6 +111,7 @@
             {{ row.range.energy | formatNumber('0,0.0') }}
           </div>
         </td>
+        <td class="cell-value"></td>
         <td class="cell-value"></td>
       </tr>
     </tbody>
@@ -119,6 +134,7 @@
           </div>
         </th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
 
@@ -127,6 +143,7 @@
         <th class="row-header">Renewables</th>
         <th></th>
         <th class="cell-value" :class="{ 'hovered': isPointHovered }">{{ getRenewableContribution() | formatNumber('0,0.0') }}%</th>
+        <th></th>
       </tr>
     </tbody>
   </table>
