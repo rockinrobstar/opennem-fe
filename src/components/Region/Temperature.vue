@@ -26,7 +26,6 @@
             -
           </div>
         </th>
-        <th></th>
       </tr>
     </thead>
 
@@ -64,7 +63,6 @@
             -
           </div>
         </td>
-        <td></td>
       </tr>
     </tbody>
   </table>
