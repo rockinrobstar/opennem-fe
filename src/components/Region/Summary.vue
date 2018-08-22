@@ -33,10 +33,6 @@
             <small>$/MWh</small>
           </div>
         </th>
-        <th class="column-header has-text-right">
-          <span>Market Value</span>
-          <small>$</small>
-        </th>
       </tr>
     </thead>
     <thead>
@@ -66,7 +62,6 @@
             {{ rangeSummary.totalAveragePrice | formatNumber('$0,0.00') }}
           </div>
         </th>
-        <th></th>
       </tr>
     </thead>
     
@@ -108,14 +103,6 @@
             {{ row.range.averagePrice | formatNumber('$0,0.00') }}
           </div>
         </td>
-        <td class="cell-value" :class="{ 'hovered': isPointHovered }">
-          <div v-if="isPointHovered">
-            {{ pointSummary.allData[row.id + '_market_value'] | roundToNearestThousands | formatNumber('$0,0') }}
-          </div>
-          
-          <div v-else>
-          </div>
-        </td>
       </tr>
     </tbody>
     
@@ -123,7 +110,6 @@
       <tr>
         <th class="row-header">Loads</th>
         <th class="cell-value"></th>
-        <th></th>
         <th></th>
         <th></th>
       </tr>
@@ -162,7 +148,6 @@
             {{ row.range.averagePrice | formatNumber('$0,0.00') }}
           </div>
         </td>
-        <td></td>
       </tr>
     </tbody>
 
@@ -185,7 +170,6 @@
         </th>
         <th></th>
         <th></th>
-        <th></th>
       </tr>
     </thead>
 
@@ -194,7 +178,6 @@
         <th class="row-header">Renewables</th>
         <th></th>
         <th class="cell-value" :class="{ 'hovered': isPointHovered }">{{ getRenewableContribution() | formatNumber('0,0.0') }}%</th>
-        <th></th>
         <th></th>
       </tr>
     </tbody>
