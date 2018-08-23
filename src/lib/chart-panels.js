@@ -356,6 +356,7 @@ function getEmissionsVolumePanel(listeners) {
         dashLength: 6,
         zeroGridAlpha: 0,
         stackType: 'regular',
+        minimum: 0,
         guides: [
           {
             includeGuidesInMinMax: false,
@@ -395,6 +396,7 @@ function getEmissionsIntensityPanel(listeners) {
         dashLength: 6,
         zeroGridAlpha: 0,
         stackType: 'regular',
+        minimum: 0,
         guides: [
           {
             includeGuidesInMinMax: false,
