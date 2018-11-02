@@ -16,12 +16,6 @@
       </div>
       <div class="panel-block">
         <label>
-          <input type="checkbox" v-model="recordsTable">
-          <span class="label-text">Show Records table</span>
-        </label>
-      </div>
-      <div class="panel-block">
-        <label>
           <input type="checkbox" v-model="emissionsVolume">
           <span class="label-text">Show Emission Volume</span>
         </label>
@@ -61,14 +55,6 @@ export default {
       },
       set(newValue) {
         this.$store.dispatch('moreDateRanges', newValue);
-      },
-    },
-    recordsTable: {
-      get() {
-        return this.$store.getters.recordsTable;
-      },
-      set(newValue) {
-        this.$store.dispatch('recordsTable', newValue);
       },
     },
     emissionsVolume: {

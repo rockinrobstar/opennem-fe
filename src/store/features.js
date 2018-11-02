@@ -9,9 +9,6 @@ if (!lsGet(MutationTypes.FEATURE_TOGGLE_LOCAL_DATA)) {
 if (!lsGet(MutationTypes.FEATURE_TOGGLE_MORE_DATE_RANGES)) {
   lsSet(MutationTypes.FEATURE_TOGGLE_MORE_DATE_RANGES, false);
 }
-if (!lsGet(MutationTypes.FEATURE_TOGGLE_RECORDS_TABLE)) {
-  lsSet(MutationTypes.FEATURE_TOGGLE_RECORDS_TABLE, false);
-}
 if (!lsGet(MutationTypes.FEATURE_TOGGLE_EMISSIONS_VOLUME)) {
   lsSet(MutationTypes.FEATURE_TOGGLE_EMISSIONS_VOLUME, false);
 }
@@ -22,7 +19,6 @@ if (!lsGet(MutationTypes.FEATURE_TOGGLE_EMISSIONS_INTENSITY)) {
 const state = {
   localData: lsGet(MutationTypes.FEATURE_TOGGLE_LOCAL_DATA),
   moreDateRanges: lsGet(MutationTypes.FEATURE_TOGGLE_MORE_DATE_RANGES),
-  recordsTable: lsGet(MutationTypes.FEATURE_TOGGLE_RECORDS_TABLE),
   emissionsVolume: lsGet(MutationTypes.FEATURE_TOGGLE_EMISSIONS_VOLUME),
   emissionsIntensity: lsGet(MutationTypes.FEATURE_TOGGLE_EMISSIONS_INTENSITY),
 };
@@ -35,10 +31,6 @@ const mutations = {
   [MutationTypes.FEATURE_TOGGLE_MORE_DATE_RANGES](state, data) {
     lsSet(MutationTypes.FEATURE_TOGGLE_MORE_DATE_RANGES, data);
     state.moreDateRanges = data;
-  },
-  [MutationTypes.FEATURE_TOGGLE_RECORDS_TABLE](state, data) {
-    lsSet(MutationTypes.FEATURE_TOGGLE_RECORDS_TABLE, data);
-    state.recordsTable = data;
   },
   [MutationTypes.FEATURE_TOGGLE_EMISSIONS_VOLUME](state, data) {
     lsSet(MutationTypes.FEATURE_TOGGLE_EMISSIONS_VOLUME, data);
@@ -57,9 +49,6 @@ const getters = {
   moreDateRanges: state => {
     return state.moreDateRanges;
   },
-  recordsTable: state => {
-    return state.recordsTable;
-  },
   emissionsVolume: state => {
     return state.emissionsVolume;
   },
@@ -74,9 +63,6 @@ const actions = {
   },
   moreDateRanges({ commit, state }, data) {
     commit(MutationTypes.FEATURE_TOGGLE_MORE_DATE_RANGES, data);
-  },
-  recordsTable({ commit, state }, data) {
-    commit(MutationTypes.FEATURE_TOGGLE_RECORDS_TABLE, data);
   },
   emissionsVolume({ commit, state }, data) {
     commit(MutationTypes.FEATURE_TOGGLE_EMISSIONS_VOLUME, data);
