@@ -202,6 +202,8 @@ export default {
       const start = e.startDate;
       const end = e.endDate;
 
+      this.$store.dispatch('period', e.chart.categoryAxis.minPeriod);
+
       // check less than 14 days
       const isLessThan14days = checkDateZoomLessThan14Days(start, end);
       if (!this.isPower && isLessThan14days) {

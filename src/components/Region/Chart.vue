@@ -355,6 +355,8 @@ export default {
       const start = e.startDate;
       const end = e.endDate;
 
+      this.$store.dispatch('period', e.chart.categoryAxis.minPeriod);
+
       // each stock panel generates a zoom event, this is to stop the data from being re-calculated
       const datesChanged = (moment(this.panelStart).isSame(start)) &&
         (moment(this.panelEnd).isSame(end));

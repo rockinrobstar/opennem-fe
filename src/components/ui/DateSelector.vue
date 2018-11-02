@@ -125,7 +125,7 @@ export default {
 .date-range {
   font-family: $primary-font-family;
   font-size: 0.8rem;
-  margin-top: 0.6rem;
+  margin-top: 0.3rem;
 
   @include tablet {
     font-size: 1rem;

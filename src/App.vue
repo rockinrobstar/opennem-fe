@@ -78,7 +78,7 @@ export default {
 }
 section {
   @include widescreen {
-    margin-top: 2rem;
+    margin-top: .5rem;
   }
 
   &.notfound-page {
