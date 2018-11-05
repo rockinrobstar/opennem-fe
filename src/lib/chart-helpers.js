@@ -230,7 +230,7 @@ function getEIStockGraphs(domains, keys, unit) {
 /**
  * amCharts Stock graphs
  */
-function getStockGraphs(domains, keys, graphType, unit) {
+function getStockGraphs(domains, keys, graphType, unit, disabledSeries) {
   const graphs = [];
 
   function hideNegativeAlphas(key) {
@@ -247,6 +247,7 @@ function getStockGraphs(domains, keys, graphType, unit) {
       const lineThickness = 1;
       const lineColor = colour;
       const type = graphType || 'line';
+      const hidden = disabledSeries.find(d => d === ftKey);
 
       if (graphType !== 'step' && hideNegativeAlphas(ftKey)) {
         negativeFillAlphas = 0;
@@ -264,6 +265,7 @@ function getStockGraphs(domains, keys, graphType, unit) {
         lineThickness,
         lineColor,
         useDataSetColors: false,
+        hidden,
         columnWidth: 0.8,
         showBalloon: false,
         periodValue: 'Average',

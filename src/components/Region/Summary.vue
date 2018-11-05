@@ -66,7 +66,12 @@
     </thead>
     
     <tbody>
-      <tr v-for="row in rangeSummary.sourcesData" :key="row.id" @click="handleSourceRowClicked(row.id)">
+      <tr 
+        v-for="row in rangeSummary.sourcesData"
+        :key="row.id"
+        @click.exact="handleSourceRowClicked(row.id)"
+        @click.shift.exact="handleSourceRowShiftClicked(row.id)"
+      >
         <td class="row-label">
           <span class="source-colour" 
             :style="{ 
@@ -120,7 +125,12 @@
     </thead>
 
     <tbody>
-      <tr v-for="row in rangeSummary.loadsData" :key="row.id" @click="handleSourceRowClicked(row.id)">
+      <tr 
+        v-for="row in rangeSummary.loadsData"
+        :key="row.id"
+        @click.exact="handleSourceRowClicked(row.id)"
+        @click.shift.exact="handleSourceRowShiftClicked(row.id)"
+      >
         <td class="row-label">
           <span class="source-colour"
             :style="{ 
@@ -197,7 +207,7 @@ import * as _ from 'lodash';
 import { mapGetters } from 'vuex';
 import EventBus from '@/lib/event-bus';
 import { formatNumberForDisplay } from '@/lib/formatter';
-import { isRenewableFuelTech } from '@/domains/graphs';
+import { GraphDomains, isRenewableFuelTech } from '@/domains/graphs';
 
 export default {
   name: 'region-summary',
@@ -221,6 +231,7 @@ export default {
       contributionType: 'contributionType',
       currentRange: 'currentRange',
       exportRegion: 'exportRegion',
+      disabledSeries: 'disabledSeries',
     }),
     isTypeGeneration() {
       return this.contributionSelection.type === 'generation';
@@ -249,15 +260,13 @@ export default {
     contributionSelection(newValue) {
       this.$store.dispatch('contributionType', newValue.type);
     },
-    currentRange() {
-      this.disabledRows = [];
-    },
-    region() {
-      this.disabledRows = [];
+    disabledSeries(newData) {
+      this.disabledRows = newData;
     },
   },
   mounted() {
     this.contributionSelection.type = this.contributionType;
+    this.disabledRows = this.disabledSeries;
   },
   methods: {
     toggleContributionType() {
@@ -284,7 +293,16 @@ export default {
       } else {
         this.disabledRows.push(id);
       }
+
+      this.$store.dispatch('disabledSeries', this.disabledRows);
       EventBus.$emit('chart.series.toggle', id, show);
+    },
+
+    handleSourceRowShiftClicked(id) {
+      this.disabledRows = Object.keys(GraphDomains).filter(d => d !== id);
+
+      this.$store.dispatch('disabledSeries', this.disabledRows);
+      EventBus.$emit('chart.series.showOnly', id);
     },
 
     isDisabled(rowId) {
@@ -337,6 +355,10 @@ export default {
 
   tr td {
     cursor: pointer;
+    user-select: none; /* CSS3 (little to no support) */
+    -ms-user-select: none; /* IE 10+ */
+    -moz-user-select: none; /* Gecko (Firefox) */
+    -webkit-user-select: none; /* Webkit (Safari, Chrome) */
   }
 
   @include desktop {

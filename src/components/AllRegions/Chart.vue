@@ -56,6 +56,7 @@ export default {
       isExportPng: 'isExportPng',
       isPower: 'isPower',
       groupToPeriods: 'groupToPeriods',
+      disabledSeries: 'disabledSeries',
     }),
   },
   watch: {
@@ -98,6 +99,7 @@ export default {
     setupEventSubscribers() {
       EventBus.$on('chart.zoomedOut.clicked', this.resetChartZoom);
       EventBus.$on('chart.series.toggle', this.seriesToggle);
+      EventBus.$on('chart.series.showOnly', this.showOnlySeries);
       EventBus.$on('extent.event.hover', this.handleExtentEventHover);
       EventBus.$on('extent.event.out', this.handleExtentEventOut);
     },
@@ -105,6 +107,7 @@ export default {
     clearEvents() {
       EventBus.$off('chart.zoomedOut.clicked');
       EventBus.$off('chart.series.toggle');
+      EventBus.$off('chart.series.showOnly');
       EventBus.$off('extent.event.hover');
       EventBus.$off('extent.event.out');
     },
@@ -157,13 +160,22 @@ export default {
       const unit = this.isPower ? 'MW' : 'GWh';
       const graphType = this.isPower ? 'line' : 'step';
       // const showWeekends = !this.isPower;
-
-      this.chart.panels[0].stockGraphs = getStockGraphs(this.domains, this.keys, graphType, unit);
+      
+      this.chart.panels[0].stockGraphs =
+        getStockGraphs(
+          this.domains,
+          this.keys,
+          graphType,
+          unit,
+          this.disabledSeries,
+        );
+      
       if (this.chart.panels.length === 3) {
         const emissionVolKeys = this.keys.filter(key => key.includes('_emissions_volume'));
         this.chart.panels[1].stockGraphs = getEVStockGraphs(this.domains, emissionVolKeys, 'tCO2e');
         this.chart.panels[2].stockGraphs = getEIStockGraphs(this.domains, ['emissionsIntensity'], '');
       }
+      
       this.chart.panels[0].guides = this.isPower ? getNemGuides(this.chartData, false) : [];
       // this.chart.panels[0].guides = getNemGuides(this.chartData, showWeekends);
       this.chart.validateData();
@@ -348,6 +360,18 @@ export default {
         p.chartCursor.hideCursor();
       });
       this.$store.dispatch('showInstantaneousData', false);
+    },
+
+    showOnlySeries(seriesId) {
+      const stockGraphs = this.chart.panels[0].stockGraphs;
+
+      stockGraphs.forEach((stockGraph) => {
+        if (stockGraph.id === seriesId) {
+          this.chart.panels[0].showGraph(stockGraph);
+        } else {
+          this.chart.panels[0].hideGraph(stockGraph);
+        }
+      });
     },
 
     seriesToggle(seriesId, show) {
