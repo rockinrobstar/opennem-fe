@@ -394,8 +394,6 @@ export default {
           end,
         });
 
-        this.$store.dispatch('setExportData', dataFilter(this.chartData, start, end));
-
         if (checkDateZoomLessThan1Day(start, end) && this.isPower) {
           this.chart.categoryAxesSettings.groupToPeriods = [Periods.PERIOD_5_MINS];
           const temperaturePanelIndex = this.getTemperaturePanelIndex();
