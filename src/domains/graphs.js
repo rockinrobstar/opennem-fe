@@ -1,6 +1,6 @@
 const GraphDomains = {
   pumps: {
-    colour: '#fff',
+    colour: '#88AFD0',
     type: 'loads',
     label: 'Pumps',
     powerUnit: 'MW',
@@ -14,7 +14,7 @@ const GraphDomains = {
     unit: '$',
   },
   battery_charging: {
-    colour: '#fff',
+    colour: '#B2DAEF',
     type: 'loads',
     label: 'Battery (Charging)',
     powerUnit: 'MW',
@@ -28,7 +28,7 @@ const GraphDomains = {
     unit: '$',
   },
   exports: {
-    colour: '#fff',
+    colour: '#977AB1',
     type: 'loads',
     label: 'Exports',
     powerUnit: 'MW',
