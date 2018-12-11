@@ -12,8 +12,10 @@
       <app-footer />
     </section>
 
-    <section v-else>
-      <router-view/>
+    <section v-if="!showMainNav">
+      <div class="router-view-container">
+        <router-view />
+      </div>
     </section>
 
   </div>  
@@ -38,7 +40,7 @@ export default {
     }),
     showMainNav() {
       const name = this.$route.name;
-      return name === 'home' || name === 'regions';
+      return name === 'home' || name === 'regions' || name === 'opencem';
     },
     isAbout() {
       return this.$route.name === 'about';

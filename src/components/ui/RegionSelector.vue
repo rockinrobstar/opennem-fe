@@ -28,6 +28,12 @@
           >
             {{region.label}}
           </a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item"
+            @click="goToOpenCEM()"
+          >
+            OpenCEM
+          </a>
         </div>
       </div>
     </transition> 
@@ -54,13 +60,16 @@ export default {
   },
   computed: {
     regionLabel() {
-      return getRegionLabel(this.$route.params.region);
+      return this.isOpenCEM ? 'OpenCEM' : getRegionLabel(this.$route.params.region);
     },
     isHome() {
       return this.$route.name === 'home';
     },
     iconDown() {
       return faAngleDown;
+    },
+    isOpenCEM() {
+      return this.$route.name === 'opencem';
     },
   },
   methods: {
@@ -79,6 +88,9 @@ export default {
     },
     goHome() {
       this.$router.push({ name: 'home' });
+    },
+    goToOpenCEM() {
+      this.$router.push({ name: 'opencem' });
     },
   },
 };

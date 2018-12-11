@@ -7,6 +7,8 @@ import About from '@/components/About';
 import FeatureToggle from '@/components/FeatureToggle';
 import NotFound from '@/components/NotFound';
 
+import CEM from '@/components/Cem';
+
 Vue.use(Router);
 
 export default new Router({
@@ -19,6 +21,11 @@ export default new Router({
       path: '/all-regions',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/opencem',
+      name: 'opencem',
+      component: CEM,
     },
     {
       path: '/regions/:region',

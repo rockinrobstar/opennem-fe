@@ -6,7 +6,15 @@
           {{ formattedPoint(getPointSummary.date, currentRange) }}
         </div>
         <div v-else>
-          <a class="dropdown-trigger" v-on-clickaway="onClickAway" @click="handleClick">
+          <span v-if="isOpenCEM">
+            {{ formattedRange(startDate, endDate, currentRange) }}
+          </span>
+
+          <a 
+            v-else
+            class="dropdown-trigger" 
+            v-on-clickaway="onClickAway" 
+            @click="handleClick">
             {{ formattedRange(startDate, endDate, currentRange) }}
             <font-awesome-icon class="fal fa-lg" :icon="iconDown" />
           </a>
@@ -73,6 +81,9 @@ export default {
     },
     regionOffset() {
       return getRegionOffset(this.$route.params.region);
+    },
+    isOpenCEM() {
+      return this.$route.name === 'opencem';
     },
   },
   watch: {
